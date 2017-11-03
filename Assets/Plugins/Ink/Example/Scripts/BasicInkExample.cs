@@ -39,13 +39,19 @@ public class BasicInkExample : MonoBehaviour
 	{
 		RemoveChildren();
 
-		while (story.canContinue)
+		if (story.canContinue)
 		{
 			string text = story.Continue().Trim();
 			CreateContentView(text);
+
+			Button button = CreateChoiceView("Continue");
+			button.onClick.AddListener(delegate
+			{
+				RefreshView();
+			});
 		}
 
-		if (story.currentChoices.Count > 0)
+		else if (story.currentChoices.Count > 0)
 		{
 			for (int i = 0; i < story.currentChoices.Count; i++)
 			{
